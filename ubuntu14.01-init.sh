@@ -101,7 +101,7 @@ sudo apt-get -y install docker-engine
 
 echo -e "\e[1;31m 指定docker源到阿里云\e[0m"
 #避免echo x >时失败
-echo "DOCKER_OPTS=\"--insecure-registry https://au6cc8gq.mirror.aliyuncs.com\"" | sudo tee -a /etc/default/docker
+echo "DOCKER_OPTS=\"--registry-mirror=https://au6cc8gq.mirror.aliyuncs.com\"" | sudo tee -a /etc/default/docker
 sudo service docker restart
 
 echo -e "\e[1;31m 开始安装Docker-compose\e[0m"
