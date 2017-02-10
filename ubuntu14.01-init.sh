@@ -122,6 +122,7 @@ sudo apt-get install -y openjdk-8-jdk
 echo -e "\e[1;31m 开始安装phpstorm\e[0m"
 wget https://download.jetbrains.8686c.com/webide/PhpStorm-2016.3.2.tar.gz
 tar -xzvf PhpStorm-2016.3.2.tar.gz
+sudo rm PhpStorm-2016.3.2.tar.gz
 sudo mv PhpStorm-163.10504.2/ /usr/local/phpstrom 
 (
 cat <<EOF
