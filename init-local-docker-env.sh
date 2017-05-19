@@ -19,17 +19,18 @@ read -p "请输入对应操作编号：" op
 mysql_server_name="dbserver"
 phpmyadmin_name="phpmyadmin"
 ticket_name="easemob-tickets"
+docker_image="docker-registry.easemob.com/easemob-wb/ticket_rel_im_v1_23"
 
 function startDocker()
 {
     ##启动mysql docker
-    sudo docker run -d --rm -e MYSQL_ROOT_PASSWORD=123456 --name $1 mysql
+    sudo docker run -d --rm -e MYSQL_ROOT_PASSWORD=123456 --name $1 mysql:5.6
 
     ##启动phpmyadmin docker
-    sudo docker run --rm -d -e SERVER_NAME=www.koma.org -v /data/www/local:/var/www/html --link $1 --name $2 docker-lnp
+    sudo docker run --rm -d -e SERVER_NAME=www.koma.org -v /data/www/local:/var/www/html --link $1 --name $2 $4
 
     ##启动工单系统docker
-    sudo docker run --rm -d -e SERVER_NAME=www.emticket.org -v /data/www/emticket:/var/www/html --link $1 --name $3 docker-lnp
+    sudo docker run --rm -d -e SERVER_NAME=www.emticket.org -v /data/www/emticket:/var/www/html --link $1 --name $3 $4
 }
 
 function stopDocker()
@@ -45,7 +46,7 @@ function restartDocker()
 
 case $op in
     1)
-        startDocker ${mysql_server_name} ${phpmyadmin_name} ${ticket_name}
+        startDocker ${mysql_server_name} ${phpmyadmin_name} ${ticket_name} ${docker_image}
         exit 0
         ;;
     2)
