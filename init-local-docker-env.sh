@@ -13,6 +13,7 @@ echo "# Koma local Docker 环境管理 #"
 echo "# 1 启动Docker环境           #"
 echo "# 2 关闭Docker环境           #"
 echo "# 3 重启Docker环境           #"
+echo "# 4 清理noneDocker           #"
 echo "##############################";
 read -p "请输入对应操作编号：" op
 
@@ -44,6 +45,14 @@ function restartDocker()
     startDocker $1 $2 $3
 }
 
+function clearNoneDocker()
+{
+
+    sudo docker ps -a | grep "Exited" | awk '{print $1 }'|xargs sudo docker stop
+    sudo docker ps -a | grep "Exited" | awk '{print $1 }'|xargs sudo docker rm
+    sudo docker images| grep none | awk '{print $3 }'| xargs sudo docker rmi
+}
+
 case $op in
     1)
         startDocker ${mysql_server_name} ${phpmyadmin_name} ${ticket_name} ${docker_image}
@@ -57,6 +66,10 @@ case $op in
         restartDocker ${mysql_server_name} ${phpmyadmin_name} ${ticket_name}
         exit 0
         ;;
+    4)
+	clearNoneDocker
+	exit 0;
+	;;
     *)
         echo "Exit";
         exit 0
