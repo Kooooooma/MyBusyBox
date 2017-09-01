@@ -25,7 +25,7 @@ docker_image="docker-registry.easemob.com/easemob-wb/ticket_rel_im_v1_23"
 function startDocker()
 {
     ##启动mysql docker
-    sudo docker run -d --rm -e MYSQL_ROOT_PASSWORD=123456 --name $1 mysql:5.6
+    sudo docker run -d --rm -e MYSQL_ROOT_PASSWORD=123456 -e TZ=Asia/Hong_Kong --name $1 mysql:5.6
 
     ##启动phpmyadmin docker
     sudo docker run --rm -d -e SERVER_NAME=www.koma.org -v /data/www/local:/var/www/html --link $1 --name $2 $4
@@ -68,7 +68,7 @@ case $op in
         ;;
     4)
 	clearNoneDocker
-	exit 0;
+	exit 0
 	;;
     *)
         echo "Exit";
