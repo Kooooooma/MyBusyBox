@@ -31,7 +31,7 @@ function startDocker()
     sudo docker run --rm -d -e SERVER_NAME=www.koma.org -v /data/www/local:/var/www/html --link $1 --name $2 $4
 
     ##启动工单系统docker
-    sudo docker run --rm -d -e SERVER_NAME=www.emticket.org -v /data/www/emticket:/var/www/html --link $1 --name $3 $4
+    sudo docker run --rm -d -e SERVER_NAME=www.emticket.org -v /data/www/emticket:/var/www/html --link $1 dockerkafka_kafka_1 --name $3 $4
 }
 
 function stopDocker()

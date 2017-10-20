@@ -1,0 +1,35 @@
+version: '2'
+services:
+    easemob-tickets:
+        image: docker-registry.easemob.com/easemob-wb/ticket_rel_im_v1_23
+        environment:
+            SERVER_NAME: www.emticket.org
+        volumes:
+            - /data/www/emticket:/var/www/html
+        depends_on:
+            - dbserver
+            - kafka
+        links:
+            - "dbserver"
+            - "kafka"
+    dbserver:
+        image: mysql:5.6
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            TZ: Asia/Hong_Kong
+    phpmyadmin:
+        image: docker-registry.easemob.com/easemob-wb/ticket_rel_im_v1_23
+        environment:
+            SERVER_NAME: www.koma.org
+        volumes:
+            - /data/www/local:/var/www/html 
+        depends_on:
+            - dbserver
+        links:
+            - "dbserver"
+    kafka:
+        image: dockerkafka_kafka 
+        ports:
+            - "9092"
+        volumes:
+            - /tmp/kafka:/kafka
